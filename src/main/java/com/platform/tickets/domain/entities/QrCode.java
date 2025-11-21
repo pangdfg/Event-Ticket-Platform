@@ -12,8 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -23,26 +21,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ticket_validations")
+@Table(name = "qr_codes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TicketValidation {
+public class QrCode {
 
     @Id
     @Column(name = "id",nullable = false,updatable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "status",nullable = false)
     @Enumerated(EnumType.STRING)
-    private TicketValidationStatusEnum status;
+    private QrCodeStatusEnum status;
 
-    @Column(name = "validation_method",nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TicketValidationMethodEnum validationMethod;
+    @Column(name = "value",columnDefinition = "TEXT",nullable = false)
+    private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
@@ -59,12 +55,12 @@ public class TicketValidation {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TicketValidation that)) return false;
-        return id.equals(that.id) && status == that.status && createdAt.equals(that.createdAt) && updatedAt.equals(that.updatedAt);
+        if (!(o instanceof QrCode qrCode)) return false;
+        return id.equals(qrCode.id) && status == qrCode.status && value.equals(qrCode.value) && createdAt.equals(qrCode.createdAt) && updatedAt.equals(qrCode.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, createdAt, updatedAt);
+        return Objects.hash(id, status, value, createdAt, updatedAt);
     }
 }

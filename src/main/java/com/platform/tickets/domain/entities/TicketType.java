@@ -2,7 +2,9 @@ package com.platform.tickets.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -61,4 +63,16 @@ public class TicketType {
     @LastModifiedDate
     @Column(name = "updated_at",nullable = false)
     private LocalDateTime updatedAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TicketType that)) return false;
+        return id.equals(that.id) && name.equals(that.name) && price.equals(that.price) && description.equals(that.description) && totalAvailable.equals(that.totalAvailable) && createdAt.equals(that.createdAt) && updatedAt.equals(that.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, description, totalAvailable, createdAt, updatedAt);
+    }
 }
