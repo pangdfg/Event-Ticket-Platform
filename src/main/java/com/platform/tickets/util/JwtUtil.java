@@ -7,6 +7,7 @@ import java.util.UUID;
 public final class JwtUtil {
 
     private JwtUtil() {
+        
     }
 
     public static UUID parseUserId(Jwt jwt) {

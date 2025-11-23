@@ -5,14 +5,14 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Component;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import jakarta.persistence.Converter;
 
 @Component
 public class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticationToken> {
@@ -35,4 +35,5 @@ public class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticat
         return roles.stream().filter(role -> role.startsWith("ROLE_"))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
 }
