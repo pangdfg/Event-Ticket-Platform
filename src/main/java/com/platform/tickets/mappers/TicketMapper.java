@@ -10,7 +10,6 @@ import com.platform.tickets.domain.dtos.GetTicketResponseDto;
 import com.platform.tickets.domain.dtos.ListTicketResponseDto;
 import com.platform.tickets.domain.dtos.ListTicketTicketTypeResponseDto;
 
-import java.util.Optional;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TicketMapper {

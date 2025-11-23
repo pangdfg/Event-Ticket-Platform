@@ -1,9 +1,6 @@
 package com.platform.tickets.domain.dtos;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
-
-import org.springframework.cglib.core.Local;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

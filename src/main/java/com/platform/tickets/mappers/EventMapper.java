@@ -2,7 +2,6 @@
 package com.platform.tickets.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 
 import com.platform.tickets.domain.CreateEventRequest;
 import com.platform.tickets.domain.CreateTicketTypeRequest;

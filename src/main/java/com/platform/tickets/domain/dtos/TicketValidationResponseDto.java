@@ -2,6 +2,8 @@ package com.platform.tickets.domain.dtos;
 
 import java.util.UUID;
 
+import com.platform.tickets.domain.entities.TicketValidationStatusEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetPublishedEventDetailsTicketTypesResponseDto {
+public class TicketValidationResponseDto {
 
-    private UUID id;
-    private String name;
-    private Double price;
-    private String description;
+    private UUID ticketId;
+    private TicketValidationStatusEnum status;
 }
