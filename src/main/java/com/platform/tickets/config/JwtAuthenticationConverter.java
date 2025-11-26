@@ -24,14 +24,15 @@ public class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticat
 
     private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
         Map<String, Object> realmAccess = jwt.getClaimAsMap("realm_access");
-        if (realmAccess != null && realmAccess.containsKey("roles")) {
+        if (realmAccess == null || realmAccess.containsKey("roles")) {
             return Collections.emptyList();
         }
 
         @SuppressWarnings("unchecked")
         List<String> roles = (List<String>) realmAccess.get("roles");
 
-        return roles.stream().filter(role -> role.startsWith("ROLE_"))
+        return roles.stream()
+                .map(role -> role.startsWith("ROLE_") ? role : "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

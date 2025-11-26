@@ -11,6 +11,10 @@ public final class JwtUtil {
     }
 
     public static UUID parseUserId(Jwt jwt) {
+        try {
         return UUID.fromString(jwt.getSubject());
+    } catch (Exception e) {
+        return null;
+    }
     }
 }
