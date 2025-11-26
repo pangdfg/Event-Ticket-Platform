@@ -54,10 +54,12 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaser_id")
     private User purchaser;
-
+    
+    @Builder.Default
     @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
     private List<TicketValidation> ticketValidations = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
     private List<QrCode> qrCodes = new ArrayList<>();
 

@@ -70,12 +70,15 @@ public class Event {
     @JoinColumn(name = "organizer_id")
     private User organizer;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "attendingEvents")
     private List<User> attendees = new ArrayList<>();
 
+    @Builder.Default
     @ManyToMany(mappedBy = "staffingEvents")
     private List<User> staff = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "event",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<TicketType> ticketTypes = new ArrayList<>();
 

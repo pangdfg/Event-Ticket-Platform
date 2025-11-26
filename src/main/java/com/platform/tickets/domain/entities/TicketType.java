@@ -57,6 +57,7 @@ public class TicketType {
     @JoinColumn(name = "event_id")
     private Event event;
 
+    @Builder.Default
     @OneToMany(mappedBy = "ticketType",cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
