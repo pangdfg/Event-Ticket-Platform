@@ -11,9 +11,17 @@ import org.springframework.security.oauth2.server.resource.web.authentication.Be
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.platform.tickets.filters.UserProvisioningFilter;
-
 @Configuration
 public class SecurityConfig {
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter(
+            KeycloakJwtAuthoritiesConverter keycloakJwtAuthoritiesConverter
+    ) {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(keycloakJwtAuthoritiesConverter);
+        return converter;
+    }
 
     @Bean
     public SecurityFilterChain sFilterChain(
