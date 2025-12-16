@@ -26,15 +26,8 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin123
-    volumes:
-      - keycloak-data:/opt/keycloak/data
     command:
         - start-dev
         - --db=dev-file
     ports:
       - "9091:8080"
-
-
-volumes:
-  keycloak-data:
-    driver: local

@@ -1,0 +1,190 @@
+    {
+  "info": {
+    "_postman_id": "9c3c7c2a-1a7a-4e2a-b9b4-1d4a11111111",
+    "name": "Platform Tickets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "accessToken", "value": "" },
+    { "key": "eventId", "value": "" },
+    { "key": "ticketTypeId", "value": "" },
+    { "key": "ticketId", "value": "" }
+  ],
+  "item": [
+
+    {
+      "name": "Auth - Keycloak",
+      "item": [
+        {
+          "name": "Get Access Token (Password Grant)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "grant_type", "value": "password" },
+                { "key": "client_id", "value": "tickets-api" },
+                { "key": "username", "value": "testuser" },
+                { "key": "password", "value": "123456" }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/realms/tickets/protocol/openid-connect/token",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["realms", "tickets", "protocol", "openid-connect", "token"]
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Published Events (Public)",
+      "item": [
+        {
+          "name": "List Published Events",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/published-events"
+          }
+        },
+        {
+          "name": "Get Published Event Details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/published-events/{{eventId}}"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Organizer - Events",
+      "item": [
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Event\",\n  \"description\": \"Concert\",\n  \"location\": \"Bangkok\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/events"
+          }
+        },
+        {
+          "name": "List My Events",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/events"
+          }
+        },
+        {
+          "name": "Get Event Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/events/{{eventId}}"
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Event\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/events/{{eventId}}"
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/events/{{eventId}}"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Tickets - User",
+      "item": [
+        {
+          "name": "List My Tickets",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets"
+          }
+        },
+        {
+          "name": "Get Ticket",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}"
+          }
+        },
+        {
+          "name": "Get Ticket QR Code",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/qr-codes"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Ticket Validation (Staff)",
+      "item": [
+        {
+          "name": "Validate Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"QR_CODE\",\n  \"id\": \"{{ticketId}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/ticket-validations"
+          }
+        }
+      ]
+    }
+  ]
+}
