@@ -31,8 +31,8 @@ public class SecurityConfig {
     ) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.GET, "/api/v1/published-events/**").permitAll()
-            .requestMatchers("/api/v1/events").hasRole("ORGANIZER")
-            .requestMatchers("/api/v1/ticket-validations").hasRole("STAFF")
+            .requestMatchers("/api/v1/events/**").hasRole("ORGANIZER")
+            .requestMatchers("/api/v1/ticket-validations/**").hasRole("STAFF")
             .anyRequest().authenticated())
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
